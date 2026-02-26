@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+</head>
+<body>
+
+    <h2>Weather App (Flask)</h2>
+
+    <input type="text" id="city" placeholder="Enter city name">
+    <button onclick="getWeather()">Get Weather</button>
+
+    <p id="result"></p>
+
+    <script>
+        function getWeather() {
+            let city = document.getElementById("city").value;
+
+            fetch(`/weather?city=${city}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        document.getElementById("result").innerHTML = data.error;
+                    } else {
+                        document.getElementById("result").innerHTML =
+                            "City: " + data.city + "<br>" +
+                            "Temperature: " + data.temperature + " °C<br>" +
+                            "Humidity: " + data.humidity + "%<br>" +
+                            "Description: " + data.description;
+                    }
+                });
+        }
+    </script>
+
+</body>
+</html>
