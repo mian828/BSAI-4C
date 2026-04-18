@@ -82,6 +82,3 @@ def chatbot_response():
 if __name__ == "__main__":
     model.fit(X, y, epochs=10, verbose=0)
     app.run(debug=True)
-
-# sometime it give issue but actual code is working. if it give error go to this 'http://127.0.0.1:5000/' address in browser.
-# i try my best to solve this  tiny issue but failed as i am not a professional but try as a professional
