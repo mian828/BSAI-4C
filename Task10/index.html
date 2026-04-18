@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Library Chatbot</title>
+    <style>
+        body { font-family: Arial; background: #eef; }
+        .chatbox {
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        #chatlogs {
+            height: 300px;
+            overflow-y: scroll;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        input { width: 75%; padding: 10px; }
+        button { padding: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="chatbox">
+    <h2>🤖 AI Library Assistant</h2>
+    <div id="chatlogs"></div>
+
+    <input type="text" id="userInput" placeholder="Ask something...">
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+function sendMessage() {
+    let input = document.getElementById("userInput").value;
+    let chatlogs = document.getElementById("chatlogs");
+
+    chatlogs.innerHTML += "<p><b>You:</b> " + input + "</p>";
+
+    fetch("/get", {
+        method: "POST",
+        body: new URLSearchParams("msg=" + input),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" }
+    })
+    .then(res => res.json())
+    .then(data => {
+        chatlogs.innerHTML += "<p><b>Bot:</b> " + data.response + "</p>";
+        document.getElementById("userInput").value = "";
+    });
+}
+</script>
+
+</body>
+</html>
